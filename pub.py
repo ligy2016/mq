@@ -12,6 +12,8 @@ def main():
 
     ctx = zmq.Context()
     s = ctx.socket(zmq.PUB)
+
+
     s.bind(bind_to)
 
 
