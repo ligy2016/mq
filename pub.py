@@ -4,18 +4,17 @@ import time
 import zmq
 
 def main():
-    if len(sys.args )!= 2:
-        print 'usage: publisher <bind-to>'
-    sys.exit()
-    bind_to = sys.argv[1]
+    # if len(sys.argv )!= 2:
+    #     print 'usage: publisher <bind-to>'
+    #     sys.exit(1)
+    # bind_to = sys.argv[1]
+    bind_to = 'tcp://127.0.0.1:10001'
     all_topics = ['sports.general','sports.football','sports.basketball','stocks.general','stocks.GOOG','stocks.AAPL','weather']
 
     ctx = zmq.Context()
     s = ctx.socket(zmq.PUB)
 
-
     s.bind(bind_to)
-
 
     print "Starting broadcast on topics:"
     print "   %s" % all_topics
@@ -28,9 +27,8 @@ def main():
         for topic in itertools.cycle(all_topics):
             msg_body = str(msg_counter.next())
             print '   Topic: %s, msg:%s' % (topic, msg_body)
-            # s.send_multipart([topic, msg_body])
             s.send_pyobj([topic, msg_body])
-            # short wait so we don't hog the cpu
+            #short wait so we don't hog the cpu
             time.sleep(0.1)
     except KeyboardInterrupt:
         pass
@@ -38,7 +36,7 @@ def main():
     time.sleep(0.5)
     s.close()
     print "Done."
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
 
 
