@@ -9,4 +9,11 @@ while True:
     print msg
     s.send_pyobj(msg+' i am server')
 
+
+
+
+
+
+
+
 s.close()
