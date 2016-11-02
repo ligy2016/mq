@@ -8,12 +8,4 @@ while True:
     msg = s.recv_pyobj()
     print msg
     s.send_pyobj(msg+' i am server')
-
-
-
-
-
-
-
-
 s.close()
